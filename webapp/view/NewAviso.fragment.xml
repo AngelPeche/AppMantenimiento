@@ -1,0 +1,160 @@
+<core:FragmentDefinition 
+	xmlns="sap.m" 
+	xmlns:core="sap.ui.core" 
+	xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<Dialog id="IdCreateAviso" title="Crear Aviso" icon="sap-icon://sales-order">
+		<content>   
+        	<IconTabBar
+			id="idIconTabBarSeparatorNoIconC"
+			expanded="true"
+			selectedKey = "header"
+			class="sapUiResponsiveContentPadding">
+			<items>
+			<IconTabFilter 
+				id="headerCreate"
+				key="header"
+				icon="sap-icon://document-text"
+				iconColor="Positive"
+				text="Nuevo Aviso">
+				<VBox class="sapUiSmallMargin">
+					
+					<f:Form id="FormCreate"
+					editable="true">
+					
+					<f:title>
+						<core:Title text="Datos de Cabecera" />
+					</f:title>
+					
+					<f:layout>
+						<f:ResponsiveGridLayout
+							labelSpanXL="3"
+							labelSpanL="3"
+							labelSpanM="3"
+							labelSpanS="12"
+							adjustLabelSpan="false"
+							emptySpanXL="4"
+							emptySpanL="4"
+							emptySpanM="4"
+							emptySpanS="0"
+							columnsXL="1"
+							columnsL="1"
+							columnsM="1"
+							singleContainerFullSize="false" />
+					</f:layout>
+					
+				<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement id="fc_claseAviso" label="Clase Aviso">
+									<ComboBox id="fc_cboClaseAviso" width="100%" items="{
+																	path: 'CLASE>/',
+																	sorter: { path: 'CLASE>VALUE' }
+																}"> 
+										<core:Item key="{CLASE>VALUE}" text="{CLASE>VALUE} - {CLASE>TEXTO}" />
+									</ComboBox>
+								</f:FormElement>
+								<f:FormElement id="fc_TextoBreve" label="Texto Breve">
+									<f:fields>
+										<Input value="" id="fc_textoBrev"
+										placeholder="Ingrese Texto Breve ..."
+										/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement id="fc_Equipo" label="Equipo">
+									<f:fields>
+										<Input 
+										    id="fc_filterEquipo" 
+										    maxSuggestionWidth="80%" 
+										    showSuggestion="true" 
+										    liveChange="onLiveChange" 
+										    placeholder="Ingrese equipo ..."
+										    app:campo="EQUNR"
+											suggestionItems="{ path: '/', sorter: { path: 'Name' } }" 
+											showValueHelp="false">
+											<core:Item key="{VALUE}" text="{TEXTO}"/>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement id="fc_fromUbicacionT" label="Ubicación Técnica">
+									<f:fields>
+										<Input 
+										    id="fc_filterUbicacionT" 
+										    maxSuggestionWidth="80%" 
+										    showSuggestion="true" 
+										    liveChange="onLiveChange" 
+										    placeholder="Ingrese Ubicación Técnica..."
+										    app:campo="BTPLN"
+											suggestionItems="{ path: '/', sorter: { path: 'Name' } }" 
+											showValueHelp="false">
+											<core:Item key="{VALUE}" text="{TEXTO}"/>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement id="fc_GrupoP" label="Especialidad">
+									<f:fields>
+										<Input 
+										    id="fc_filterGrupoP" 
+										    maxSuggestionWidth="80%" 
+										    showSuggestion="true" 
+										    liveChange="onLiveChange" 
+										    placeholder="Ingrese Especialidad"
+										    app:campo="INGRP"
+											suggestionItems="{ path: '/', sorter: { path: 'Name' } }" 
+											showValueHelp="false">
+											<core:Item key="{VALUE}" text="{TEXTO}"/>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement id="fc_PuestoT" label="Puesto de trabajo">
+									<f:fields>
+										<Input 
+										    id="fc_filterpuestoT" 
+										    maxSuggestionWidth="80%" 
+										    showSuggestion="true" 
+										    liveChange="onLiveChange" 
+										    placeholder="Ingrese Puesto de Trabajo ..."
+										    app:campo="ARBPL"
+											suggestionItems="{ path: '/', sorter: { path: 'Name' } }" 
+											showValueHelp="false">
+											<core:Item key="{VALUE}" text="{TEXTO}"/>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement id="fc_Aviso" label="Descripción Aviso">
+									<f:fields>
+										<Input value="" id="fc_descripcion"
+										placeholder="Ingrese descripción ..."
+										/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement id="fc_Proridad" label="Prioridad">
+									<ComboBox id="fc_cboPrioridad" width="100%" items="{
+																	path: 'PRIORIDAD>/',
+																	sorter: { path: 'Combo>VALUE' }
+																}"> 
+										<core:Item key="{PRIORIDAD>VALUE}" text="{PRIORIDAD>VALUE} - {PRIORIDAD>TEXTO}" />
+									</ComboBox>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+				</VBox>	
+			</IconTabFilter>
+			<IconTabSeparator icon=""/>
+			</items>
+		</IconTabBar>
+        </content>
+        <beginButton>
+            <Button text="Grabar" type="Accept" icon="sap-icon://save" press="onCreateAviso" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancelar"  type="Reject" icon="sap-icon://sys-cancel" press="onEndAviso" />
+        </endButton>  
+            
+	</Dialog>
+	
+</core:FragmentDefinition>

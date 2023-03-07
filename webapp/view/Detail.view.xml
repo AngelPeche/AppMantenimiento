@@ -1,0 +1,167 @@
+<mvc:View
+	controllerName="poderosa.app.mantenimiento.controller.Detail"
+	xmlns="sap.m"
+	xmlns:semantic="sap.f.semantic"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout">
+	<semantic:SemanticPage
+		id="page"
+		busy="{detailView>/busy}"
+		busyIndicatorDelay="{detailView>/delay}">
+		<semantic:titleHeading>
+			<Title
+				text="{
+					parts: [
+						'i18n>commonItemTitle',
+						'Aviso>qmnum'
+					],
+					formatter: 'jQuery.sap.formatMessage'
+				}"/>
+		</semantic:titleHeading>
+		<semantic:headerContent>
+			<l:HorizontalLayout>
+				<l:VerticalLayout class="sapUiMediumMarginEnd">
+					<ObjectAttribute
+						title="{i18n>commonTextName}"
+						text="{Aviso>qmtxt}"/>
+					<ObjectAttribute
+						title="{i18n>detailOrderDate}"
+						text="{
+							path: 'Aviso>erdat',
+							formatOptions: { style: 'medium' }
+						}"/>
+					<ObjectAttribute
+						title="{i18n>commonRegisteredItem}"
+						text="{
+							path: 'Aviso>mzeit',
+							formatOptions: { style: 'medium' }
+							}"/>
+				</l:VerticalLayout>
+				<l:VerticalLayout>
+					<ObjectAttribute
+						title="{i18n>commonLocationItem}"
+						text="{Aviso>iwerk}"/>
+					<ObjectAttribute
+						title="{i18n>commonEquipmentItem}"
+						text="{
+							path: 'Aviso>equnr',
+							formatOptions: { style: 'medium' }
+						}"/>
+					<ObjectAttribute
+						title="{i18n>commonMaterialItem}"
+						text="{
+							path: 'Aviso>matnr',
+							formatOptions: { style: 'medium' }
+						}"/>
+				</l:VerticalLayout>
+			</l:HorizontalLayout>
+		</semantic:headerContent>
+		<semantic:content>
+			<l:VerticalLayout>
+				<IconTabBar
+					id="iconTabBar"
+					headerBackgroundDesign="Transparent"
+					select=".onTabSelect"
+					selectedKey="{detailView>/selectedTab}">
+					<items>
+						<IconTabFilter
+							id="iconTabFilterShipping"
+							icon="sap-icon://shipping-status"
+							tooltip="{i18n>detailIconTabBarShipping}"
+							key="shipping">
+						</IconTabFilter>
+						<IconTabFilter
+							id="iconTabFilterProcessor"
+							icon="sap-icon://employee"
+							tooltip="{i18n>detailIconTabBarProcessor}"
+							key="processor">
+						</IconTabFilter>
+					</items>
+				</IconTabBar>
+				<Table
+					id="lineItemsList"
+					class="sapUiSmallMarginTop"
+					width="auto"
+					items="{Aviso>status}"
+					updateFinished=".onListUpdateFinished"
+					noDataText="{i18n>detailLineItemTableNoDataText}"
+					busyIndicatorDelay="{detailView>/lineItemTableDelay}">
+					<headerToolbar>
+						<Toolbar id="lineItemsToolbar">
+							<Title
+								id="lineItemsHeader"
+								text="{detailView>/lineItemListTitle}"/>
+						</Toolbar>
+					</headerToolbar>
+					<columns>
+						<Column>
+							<!--<Text text=<"{i18n>detailLineItemTableIDColumn}"/>-->
+							<Text text="Status"/>
+						</Column>
+						<Column
+							minScreenWidth="Tablet"
+							demandPopin="true"
+							hAlign="End">
+							<!--<Text text="{i18n>detailLineItemTableUnitPriceColumn}"/>-->
+							<Text text="Fecha Act."/>
+						</Column>
+						<Column
+							minScreenWidth="Tablet"
+							demandPopin="true"
+							hAlign="End">
+							<!--<Text text="{i18n>detailLineItemTableUnitQuantityColumn}"/>-->
+							<Text text="Status Text"/>
+						</Column>
+						<Column
+							minScreenWidth="Tablet"
+							demandPopin="true"
+							hAlign="End">
+							<!--<Text text="{i18n>detailLineItemTableTotalColumn}"/>-->
+							<Text text="Status Descripción"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<ObjectIdentifier
+									text="{Aviso>stat}"/>
+								<ObjectAttribute
+									text="{Aviso>udate}"/>
+								<ObjectAttribute
+									text="{Aviso>txt04}"/>
+								<ObjectAttribute
+									text="{Aviso>txt30}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</l:VerticalLayout>
+		</semantic:content>
+		
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction
+				id="shareEmail"
+				press=".onSendEmailPress"/>
+		</semantic:sendEmailAction>
+		<semantic:titleMainAction>
+			<semantic:TitleMainAction id="createOrder" text="Crear Orden" press="onCreateOrder"/>
+		</semantic:titleMainAction>
+		<semantic:closeAction>
+			<semantic:CloseAction
+				id="closeColumn"
+				press=".onCloseDetailPress"/>
+		</semantic:closeAction>
+		<semantic:fullScreenAction>
+			<semantic:FullScreenAction
+				id="enterFullScreen"
+				visible="{= !${device>/system/phone} &amp;&amp; !${appView>/actionButtonsInfo/midColumn/fullScreen}}"
+				press="toggleFullScreen"/>
+		</semantic:fullScreenAction>
+		<semantic:exitFullScreenAction>
+			<semantic:ExitFullScreenAction
+				id="exitFullScreen"
+				visible="{= !${device>/system/phone} &amp;&amp; ${appView>/actionButtonsInfo/midColumn/fullScreen}}"
+				press="toggleFullScreen"/>
+		</semantic:exitFullScreenAction>
+	</semantic:SemanticPage>
+</mvc:View>
