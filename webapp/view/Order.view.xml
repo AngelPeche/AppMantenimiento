@@ -1,0 +1,44 @@
+<mvc:View
+	controllerName="poderosa.app.mantenimiento.controller.Detail"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core">
+	<VBox>
+		<Table id="lineItemsList" class="sapUiSmallMarginTop" width="auto" items="{Aviso>order_info}" updateFinished=".onListUpdateFinished" noDataText="{i18n>detailLineItemTableNoDataText}" busyIndicatorDelay="{detailView>/lineItemTableDelay}">
+            <headerToolbar>
+                <Toolbar id="lineItemsToolbar">
+                    <Title id="lineItemsHeader" text="{detailView>/lineItemListTitle}" />
+                </Toolbar>
+            </headerToolbar>
+            <columns>
+                <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                    <Text text="{i18n>detailLineItemTableOrden}"/>
+                    <!--<Text text="Orden" />-->
+                </Column>
+                <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                    <Text text="{i18n>detailLineItemTableClasePrioridad}"/>
+                    <!--<Text text="Clase Prioridad" />-->
+                </Column>
+                <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                    <Text text="{i18n>detailLineItemTableFechaReg}"/>
+                    <!--<Text text="Fecha Registro" />-->
+                </Column>
+                <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                    <Text text="{i18n>detailLineItemTableHoraReg}"/>
+                    <!--<Text text="Hora Registro" />-->
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <ObjectIdentifier text="{Aviso>aufnr}" />
+                        <ObjectAttribute text="{Aviso>artpr}" />
+                        <ObjectAttribute text="{Aviso>addat}" />
+                        <ObjectAttribute text="{Aviso>aduhr}" />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+	</VBox>
+</mvc:View>

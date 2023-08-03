@@ -5,7 +5,7 @@
 	xmlns:u="sap.ui.unified"
 	xmlns:f="sap.ui.layout.form"
 	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
-	<Dialog id="IdCreateAviso" title="Crear Aviso" icon="sap-icon://sales-order">
+	<Dialog id="IdCreateAviso" title="{i18n>CreateAvisoTitle}" icon="sap-icon://sales-order">
 		<content>   
         	<IconTabBar
 			id="idIconTabBarSeparatorNoIconC"
@@ -18,14 +18,14 @@
 				key="header"
 				icon="sap-icon://document-text"
 				iconColor="Positive"
-				text="Nuevo Aviso">
+				text="{i18n>CreateAvisoTabTitle}">
 				<VBox class="sapUiSmallMargin">
 					
 					<f:Form id="FormCreate"
 					editable="true">
 					
 					<f:title>
-						<core:Title text="Datos de Cabecera" />
+						<core:Title text="{i18n>CreateAvisoVBoxTitle}" />
 					</f:title>
 					
 					<f:layout>
@@ -48,22 +48,22 @@
 				<f:formContainers>
 						<f:FormContainer>
 							<f:formElements>
-								<f:FormElement id="fc_claseAviso" label="Clase Aviso">
+								<f:FormElement id="fc_claseAviso" label="{i18n>CreateAvisoclaseAviso}">
 									<ComboBox id="fc_cboClaseAviso" width="100%" items="{
 																	path: 'CLASE>/',
 																	sorter: { path: 'CLASE>VALUE' }
-																}"> 
+																}" selectionChange="onChangeClaseAviso" > 
 										<core:Item key="{CLASE>VALUE}" text="{CLASE>VALUE} - {CLASE>TEXTO}" />
 									</ComboBox>
 								</f:FormElement>
-								<f:FormElement id="fc_TextoBreve" label="Texto Breve">
+								<f:FormElement id="fc_TextoBreve" label="{i18n>CreateAvisoTextoBreve}">
 									<f:fields>
 										<Input value="" id="fc_textoBrev"
 										placeholder="Ingrese Texto Breve ..."
 										/>
 									</f:fields>
 								</f:FormElement>
-								<f:FormElement id="fc_Equipo" label="Equipo">
+								<f:FormElement id="fc_Equipo" label="{i18n>CreateAvisoEquipo}">
 									<f:fields>
 										<Input 
 										    id="fc_filterEquipo" 
@@ -78,7 +78,7 @@
 										</Input>
 									</f:fields>
 								</f:FormElement>
-								<f:FormElement id="fc_fromUbicacionT" label="Ubicación Técnica">
+								<f:FormElement id="fc_fromUbicacionT" label="{i18n>CreateAvisoUbicacionT}">
 									<f:fields>
 										<Input 
 										    id="fc_filterUbicacionT" 
@@ -93,7 +93,67 @@
 										</Input>
 									</f:fields>
 								</f:FormElement>
-								<f:FormElement id="fc_GrupoP" label="Especialidad">
+								<f:FormElement id="fc_Parte" label="{i18n>CreateAvisoParte}">
+									<f:fields>
+										<Input 
+										    id="fc_filterParte" 
+										    maxSuggestionWidth="80%" 
+										    showSuggestion="true" 
+										    liveChange="onLiveChange" 
+										    placeholder="Ingrese Parte"
+										    app:campo="INGRP"
+											suggestionItems="{ path: '/', sorter: { path: 'Name' } }" 
+											showValueHelp="false">
+											<core:Item key="{VALUE}" text="{TEXTO}"/>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement id="fc_Objeto" label="{i18n>CreateAvisoObjeto}">
+									<f:fields>
+										<Input 
+										    id="fc_filterObjeto" 
+										    maxSuggestionWidth="80%" 
+										    showSuggestion="true" 
+										    liveChange="onLiveChange" 
+										    placeholder="Ingrese Objeto"
+										    app:campo="INGRP"
+											suggestionItems="{ path: '/', sorter: { path: 'Name' } }" 
+											showValueHelp="false">
+											<core:Item key="{VALUE}" text="{TEXTO}"/>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement id="fc_Sintoma" label="{i18n>CreateAvisoSintoma}">
+									<f:fields>
+										<Input 
+										    id="fc_filterSintoma" 
+										    maxSuggestionWidth="80%" 
+										    showSuggestion="true" 
+										    liveChange="onLiveChange" 
+										    placeholder="Ingrese Sintoma"
+										    app:campo="INGRP"
+											suggestionItems="{ path: '/', sorter: { path: 'Name' } }" 
+											showValueHelp="false">
+											<core:Item key="{VALUE}" text="{TEXTO}"/>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement id="fc_Causa" label="{i18n>CreateAvisoCausa}">
+									<f:fields>
+										<Input 
+										    id="fc_filterCausa" 
+										    maxSuggestionWidth="80%" 
+										    showSuggestion="true" 
+										    liveChange="onLiveChange" 
+										    placeholder="Ingrese Causa"
+										    app:campo="INGRP"
+											suggestionItems="{ path: '/', sorter: { path: 'Name' } }" 
+											showValueHelp="false">
+											<core:Item key="{VALUE}" text="{TEXTO}"/>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+								<!--<f:FormElement id="fc_GrupoP" label="Especialidad">
 									<f:fields>
 										<Input 
 										    id="fc_filterGrupoP" 
@@ -129,8 +189,8 @@
 										placeholder="Ingrese descripción ..."
 										/>
 									</f:fields>
-								</f:FormElement>
-								<f:FormElement id="fc_Proridad" label="Prioridad">
+								</f:FormElement>-->
+								<f:FormElement id="fc_Proridad" label="{i18n>CreateAvisoPrioridad}">
 									<ComboBox id="fc_cboPrioridad" width="100%" items="{
 																	path: 'PRIORIDAD>/',
 																	sorter: { path: 'Combo>VALUE' }

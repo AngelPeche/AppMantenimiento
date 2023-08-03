@@ -40,7 +40,7 @@
 				<l:VerticalLayout>
 					<ObjectAttribute
 						title="{i18n>commonLocationItem}"
-						text="{Aviso>iwerk}"/>
+						text="{Aviso>tplnr}"/>
 					<ObjectAttribute
 						title="{i18n>commonEquipmentItem}"
 						text="{
@@ -65,87 +65,36 @@
 					selectedKey="{detailView>/selectedTab}">
 					<items>
 						<IconTabFilter
-							id="iconTabFilterShipping"
-							icon="sap-icon://shipping-status"
-							tooltip="{i18n>detailIconTabBarShipping}"
-							key="shipping">
+							id="iconTabFilterInformation"
+							icon="sap-icon://detail-view"
+							tooltip="{i18n>detailIconTabBarInformation}"
+							key="information">
 						</IconTabFilter>
 						<IconTabFilter
-							id="iconTabFilterProcessor"
-							icon="sap-icon://employee"
-							tooltip="{i18n>detailIconTabBarProcessor}"
-							key="processor">
+							id="iconTabFilterOrder"
+							icon="sap-icon://course-program"
+							tooltip="{i18n>detailIconTabBarOrder}"
+							key="order">
 						</IconTabFilter>
 					</items>
 				</IconTabBar>
-				<Table
-					id="lineItemsList"
-					class="sapUiSmallMarginTop"
-					width="auto"
-					items="{Aviso>status}"
-					updateFinished=".onListUpdateFinished"
-					noDataText="{i18n>detailLineItemTableNoDataText}"
-					busyIndicatorDelay="{detailView>/lineItemTableDelay}">
-					<headerToolbar>
-						<Toolbar id="lineItemsToolbar">
-							<Title
-								id="lineItemsHeader"
-								text="{detailView>/lineItemListTitle}"/>
-						</Toolbar>
-					</headerToolbar>
-					<columns>
-						<Column>
-							<!--<Text text=<"{i18n>detailLineItemTableIDColumn}"/>-->
-							<Text text="Status"/>
-						</Column>
-						<Column
-							minScreenWidth="Tablet"
-							demandPopin="true"
-							hAlign="End">
-							<!--<Text text="{i18n>detailLineItemTableUnitPriceColumn}"/>-->
-							<Text text="Fecha Act."/>
-						</Column>
-						<Column
-							minScreenWidth="Tablet"
-							demandPopin="true"
-							hAlign="End">
-							<!--<Text text="{i18n>detailLineItemTableUnitQuantityColumn}"/>-->
-							<Text text="Status Text"/>
-						</Column>
-						<Column
-							minScreenWidth="Tablet"
-							demandPopin="true"
-							hAlign="End">
-							<!--<Text text="{i18n>detailLineItemTableTotalColumn}"/>-->
-							<Text text="Status Descripción"/>
-						</Column>
-					</columns>
-					<items>
-						<ColumnListItem>
-							<cells>
-								<ObjectIdentifier
-									text="{Aviso>stat}"/>
-								<ObjectAttribute
-									text="{Aviso>udate}"/>
-								<ObjectAttribute
-									text="{Aviso>txt04}"/>
-								<ObjectAttribute
-									text="{Aviso>txt30}"/>
-							</cells>
-						</ColumnListItem>
-					</items>
-				</Table>
 			</l:VerticalLayout>
 		</semantic:content>
 		
-		<semantic:sendEmailAction>
+		<!--<semantic:sendEmailAction>
 			<semantic:SendEmailAction
 				id="shareEmail"
 				press=".onSendEmailPress"/>
-		</semantic:sendEmailAction>
-		<semantic:titleMainAction>
-			<semantic:TitleMainAction id="createOrder" text="Crear Orden" press="onCreateOrder"/>
-		</semantic:titleMainAction>
+		</semantic:sendEmailAction>-->
+		<semantic:titleCustomIconActions>
+			<OverflowToolbarButton icon="sap-icon://add-coursebook" tooltip="Crear Orden" text ="Crear Orden" press="onOpenNewOrder"/>
+		</semantic:titleCustomIconActions>
+		<semantic:titleCustomIconActions>
+			<OverflowToolbarButton icon="sap-icon://notification-2" tooltip="Notificar" text ="Notificar" press="onOpenNewNotification"/>
+		</semantic:titleCustomIconActions>
+		<!--<semantic:titleCustomIconActions>
+			<OverflowToolbarButton icon="sap-icon://add-activity" tooltip="Registro Horas" text ="Registro Horas" press="onOpenNewRegistration"/>
+		</semantic:titleCustomIconActions>-->
 		<semantic:closeAction>
 			<semantic:CloseAction
 				id="closeColumn"

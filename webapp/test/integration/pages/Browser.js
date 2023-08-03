@@ -55,7 +55,7 @@ sap.ui.define([
 							var sObjectId = this.getContext().currentItem.id;
 							var	oHashChanger = Opa5.getHashChanger();
 							var	sHash = oHashChanger.getHash();
-							Opa5.assert.strictEqual(sHash, "Orders/" + sObjectId + "/?tab=shipping", "The Hash is not correct");
+							Opa5.assert.strictEqual(sHash, "Orders/" + sObjectId + "/?tab=information", "The Hash is not correct");
 						}
 					});
 				},

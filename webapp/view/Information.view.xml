@@ -1,0 +1,39 @@
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form">
+    <VBox>
+        <Table id="lineItemsList" class="sapUiSmallMarginTop" width="auto" items="{Aviso>status}" updateFinished=".onListUpdateFinished" noDataText="{i18n>detailLineItemTableNoDataText}" busyIndicatorDelay="{detailView>/lineItemTableDelay}">
+            <headerToolbar>
+                <Toolbar id="lineItemsToolbar">
+                    <Title id="lineItemsHeader" text="{detailView>/lineItemListTitle}" />
+                </Toolbar>
+            </headerToolbar>
+            <columns>
+                <Column>
+                    <Text text="{i18n>detailLineItemTableStatus}"/>
+                    <!--<Text text="Status" />-->
+                </Column>
+                <Column minScreenWidth="Tablet" demandPopin="true" hAlign="End">
+                    <Text text="{i18n>detailLineItemTableFecha}"/>
+                    <!--<Text text="Fecha Act." />-->
+                </Column>
+                <Column minScreenWidth="Tablet" demandPopin="true" hAlign="End">
+                    <Text text="{i18n>detailLineItemTableStatusText}"/>
+                    <!--<Text text="Status Text" />-->
+                </Column>
+                <Column minScreenWidth="Tablet" demandPopin="true" hAlign="End">
+                    <Text text="{i18n>detailLineItemTableStatusDescr}"/>
+                    <!--<Text text="Status Descripción" />-->
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <ObjectIdentifier text="{Aviso>stat}" />
+                        <ObjectAttribute text="{Aviso>udate}" />
+                        <ObjectAttribute text="{Aviso>txt04}" />
+                        <ObjectAttribute text="{Aviso>txt30}" />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </VBox>
+</mvc:View>

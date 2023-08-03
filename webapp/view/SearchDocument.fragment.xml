@@ -1,0 +1,86 @@
+<core:FragmentDefinition 
+	xmlns="sap.m" 
+	xmlns:core="sap.ui.core" 
+	xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified"
+	xmlns:plugins="sap.m.plugins"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<Dialog id="IdSearchDocument" title="{i18n>SearchDocumentTitle}" icon="sap-icon://inspection">
+		<content>   
+        	<IconTabBar
+			id="idIconTabBarSeparatorNoIconDoc"
+			expanded="true"
+			selectedKey = "header"
+			class="sapUiResponsiveContentPadding">
+			<items>
+			<IconTabFilter
+				icon="sap-icon://list"
+				iconColor="Positive"
+				text="{i18n>SearchDocumentTabTitle}">
+				<Table id="TbDocuments" 
+						inset="false"
+						fixedLayout="Strict"
+						autoPopinMode="true"
+						contextualWidth="Auto"
+						growing="true"
+						growingScrollToLoad="true"
+						items="{Documents}">
+						<headerToolbar>
+							<OverflowToolbar id="otbSubheader01">
+								<Title 	 text="{i18n>SearchDocumentTableTitle}" level="H2"  />
+								<ToolbarSpacer />
+								<Input width="20%" placeholder="Ingrese Equipo ..." id="IEquipo">
+									<layoutData>
+										<OverflowToolbarLayoutData shrinkable="true" group="2" minWidth="150px"/>
+									</layoutData>
+								</Input>
+							</OverflowToolbar>
+						</headerToolbar>
+						<dependents>
+							<plugins:ColumnResizer/>
+						</dependents>
+						<columns>
+							<Column >
+								<Text text="{i18n>SearchDocumentEquipoColumn}" />
+							</Column>
+								<Column >
+								<Text text="{i18n>SearchDocumentDenomColumn}" />
+							</Column>
+							<Column >
+								<Text text="{i18n>SearchDocumentPuntoMColumn}" />
+							</Column>
+							<Column >
+								<Text text="{i18n>SearchDocumentValorColumn}" />
+							</Column>
+							<Column >
+								<Text text="{i18n>SearchDocumentFechaRColumn}" />
+							</Column>					
+						</columns>
+						<items id="items">
+							<ColumnListItem>
+								<cells>
+									<ObjectIdentifier text="{EQUNR}" />
+									<ObjectAttribute text="{EQKTX}" />
+									<ObjectAttribute text="{POINT}" />
+									<ObjectAttribute text="{RECDV}" />
+									<ObjectAttribute text="{ERDAT}" />									
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+			</IconTabFilter>
+			<IconTabSeparator icon=""/>
+			</items>
+		</IconTabBar>
+        </content>
+		<beginButton>
+            <Button text="Buscar" type="Accept" icon="sap-icon://search" press="onSearchDocumentM" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancelar"  type="Reject" icon="sap-icon://sys-cancel" press="onEndSearchDocument" />
+        </endButton>  
+            
+	</Dialog>
+	
+</core:FragmentDefinition>

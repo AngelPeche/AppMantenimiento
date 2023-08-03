@@ -4,13 +4,7 @@
         "id": "poderosa.app.mantenimiento",
         "type": "application",
         "resources": "resources.json",
-        "i18n": {
-            "bundleUrl": "i18n/i18n.properties",
-            "supportedLocales": [
-                ""
-            ],
-            "fallbackLocale": ""
-        },
+        "i18n": "i18n/i18n.properties",
         "title": "{{appTitle}}",
         "description": "{{appDescription}}",
         "applicationVersion": {
@@ -81,7 +75,7 @@
             },
             "": {
                 "dataSource": "ZGW_APP_MANTEN_ISP_SRV",
-                "preload": true
+                "preload": false
             }
         },
         "routing": {
@@ -133,16 +127,16 @@
                     "name": "NotFound",
                     "id": "notFound"
                 },
-                "shipping": {
-                    "name": "Shipping",
+                "information": {
+                    "name": "Information",
                     "parent": "object",
-                    "controlId": "iconTabFilterShipping",
+                    "controlId": "iconTabFilterInformation",
                     "controlAggregation": "content"
                 },
-                "processor": {
-                    "name": "Processor",
+                "order": {
+                    "name": "Order",
                     "parent": "object",
-                    "controlId": "iconTabFilterProcessor",
+                    "controlId": "iconTabFilterOrder",
                     "controlAggregation": "content"
                 }
             }

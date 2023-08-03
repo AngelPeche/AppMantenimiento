@@ -1,0 +1,149 @@
+<core:FragmentDefinition 
+	xmlns="sap.m" 
+	xmlns:core="sap.ui.core" 
+	xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<Dialog id="IdCreateNotification" title="{i18n>CreateRegistrationTitle}" icon="sap-icon://notification-2">
+		<content>   
+        	<IconTabBar
+			id="idIconTabBarSepNoIconC"
+			expanded="true"
+			selectedKey = "header"
+			class="sapUiResponsiveContentPadding">
+			<items>
+			<IconTabFilter 
+				id="headerNotification"
+				key="header"
+				icon="sap-icon://notification-2"
+				iconColor="Positive"
+				text="{i18n>CreateRegistrationTabTitle}">
+				<VBox class="sapUiSmallMargin">
+					
+					<f:Form id="FormNotification"
+					editable="true">
+					
+					<f:title>
+						<core:Title text="{i18n>CreateRegistrationVBoxTitle}" />
+					</f:title>
+					
+					<f:layout>
+						<f:ResponsiveGridLayout
+							labelSpanXL="3"
+							labelSpanL="3"
+							labelSpanM="3"
+							labelSpanS="12"
+							adjustLabelSpan="false"
+							emptySpanXL="4"
+							emptySpanL="4"
+							emptySpanM="4"
+							emptySpanS="0"
+							columnsXL="1"
+							columnsL="1"
+							columnsM="1"
+							singleContainerFullSize="false" />
+					</f:layout>
+					
+				<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement id="fc_Orden" label="{i18n>CreateRegistrationOrden}">
+									<Input 
+										    id="fc_IOrden" 
+										    maxSuggestionWidth="80%" 
+										    showSuggestion="true" 
+										    placeholder="Ingrese Orden ..."
+											showValueHelp="false">
+											<core:Item key="" text=""/>
+										</Input>
+								</f:FormElement>
+								<f:FormElement id="fc_Operacion" label="{i18n>CreateRegistrationOperacion}">
+									<f:fields>
+										<Input 
+										    id="fc_IOperacion" 
+										    maxSuggestionWidth="80%" 
+										    showSuggestion="true" 
+										    placeholder="Ingrese Operación ..."
+											showValueHelp="false">
+											<core:Item key="" text=""/>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement id="fc_HorasN" label="{i18n>CreateRegistrationHorasN}">
+									<f:fields>
+										<Input 
+										    id="fc_IHorasN" 
+										    maxSuggestionWidth="80%" 
+										    showSuggestion="true" 
+										    placeholder="Ingrese horas a notificar ..."
+											showValueHelp="false">
+											<core:Item key="{}" text="{}"/>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement id="fc_Centro" label="{i18n>CreateRegistrationCentro}">
+									<f:fields>
+										<Input 
+										    id="fc_ICentro" 
+										    maxSuggestionWidth="80%" 
+										    showSuggestion="true" 
+										    liveChange="onLiveChange" 
+										    placeholder="Ingrese Centro..."
+										    app:campo="BTPLN"
+											suggestionItems="{ path: '/', sorter: { path: 'Name' } }" 
+											showValueHelp="false">
+											<core:Item key="{VALUE}" text="{TEXTO}"/>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement id="fc_PuestoTrab" label="{i18n>CreateRegistrationPuestoTrab}">
+									<f:fields>
+										<Input 
+										    id="fc_IpuestoT" 
+										    maxSuggestionWidth="80%" 
+										    showSuggestion="true" 
+										    liveChange="onLiveChange" 
+										    placeholder="Ingrese Puesto de Trabajo ..."
+										    app:campo="ARBPL"
+											suggestionItems="{ path: '/', sorter: { path: 'Name' } }" 
+											showValueHelp="false">
+											<core:Item key="{VALUE}" text="{TEXTO}"/>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement id="fc_NumPersonal" label="{i18n>CreateRegistrationNumPersonal}">
+									<f:fields>
+										<Input 
+										    id="fc_INumPersonal" 
+										    maxSuggestionWidth="80%" 
+										    showSuggestion="true" 
+										    liveChange="onLiveChange" 
+										    placeholder="Ingrese Numero de Personal ..."
+										    app:campo=""
+											suggestionItems="{ path: '/', sorter: { path: 'Name' } }" 
+											showValueHelp="false">
+											<core:Item key="{VALUE}" text="{TEXTO}"/>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+				</VBox>	
+			</IconTabFilter>
+			<IconTabSeparator icon=""/>
+			</items>
+		</IconTabBar>
+        </content>
+        <beginButton>
+            <Button text="Grabar" type="Accept" icon="sap-icon://save" press="onCreateNotification" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancelar"  type="Reject" icon="sap-icon://sys-cancel" press="onEndNotification" />
+        </endButton>  
+            
+	</Dialog>
+	
+</core:FragmentDefinition>

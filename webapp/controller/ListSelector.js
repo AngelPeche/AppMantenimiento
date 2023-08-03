@@ -20,6 +20,7 @@ sap.ui.define([
 			}.bind(this));
 			// This promise needs to be created in the constructor, since it is allowed to
 			// invoke selectItem functions before calling setBoundMasterList
+			/*
 			this.oWhenListLoadingIsDone = new Promise(function (fnResolve, fnReject) {
 				// Used to wait until the setBound masterList function is invoked
 				this._oWhenListHasBeenSet
@@ -39,7 +40,7 @@ sap.ui.define([
 							}.bind(this)
 						);
 					}.bind(this));
-			}.bind(this));
+			}.bind(this)); */
 		},
 
 		/**

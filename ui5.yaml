@@ -11,11 +11,11 @@ server:
         backend:
           - path: /sap
             url: http://vhpodds4ci.sap.poderosa.com.pe:44300
-            client: "200"
+            client: "300"
             destination: DEV_PODEROSA
           - path: /services/userapi/attributes
             url: http://vhpodds4ci.sap.poderosa.com.pe:44300
-            client: "200"
+            client: "300"
             destination: DEV_PODEROSA
         ui5:
           path:

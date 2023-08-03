@@ -1,0 +1,105 @@
+<core:FragmentDefinition 
+	xmlns="sap.m" 
+	xmlns:core="sap.ui.core" 
+	xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<Dialog id="IdCreateRegistration" title="{i18n>CreateRegistrationDTitle}" icon="sap-icon://sales-order">
+		<content>   
+        	<IconTabBar
+			id="idIconTabBarSeparatorRegistration"
+			expanded="true"
+			selectedKey = "header"
+			class="sapUiResponsiveContentPadding">
+			<items>
+			<IconTabFilter 
+				id="headerRegistration"
+				key="header"
+				icon="sap-icon://document-text"
+				iconColor="Positive"
+				text="{i18n>CreateRegistrationDTabTitle}">
+				<VBox class="sapUiSmallMargin">
+				
+					<f:Form id="FormRegistration"
+					editable="true">
+					
+					<f:title>
+						<core:Title text="{i18n>CreateRegistrationDVBoxTitle}" />
+					</f:title>
+					
+					<f:layout>
+						<f:ResponsiveGridLayout
+							labelSpanXL="3"
+							labelSpanL="3"
+							labelSpanM="3"
+							labelSpanS="12"
+							adjustLabelSpan="false"
+							emptySpanXL="4"
+							emptySpanL="4"
+							emptySpanM="4"
+							emptySpanS="0"
+							columnsXL="1"
+							columnsL="1"
+							columnsM="1"
+							singleContainerFullSize="false" />
+					</f:layout>
+				
+				<f:formContainers>
+						<f:FormContainer>
+						
+							<f:FormElement id="fc_fromPuntoM" label="{i18n>CreateRegistrationDPuntoM}">
+									<f:fields>
+										<Input 
+										    id="fc_IPuntoM" 
+										    maxSuggestionWidth="80%" 
+										    showSuggestion="true" 
+											liveChange="onLiveChange" 
+										    placeholder="Ingrese Punto Medida..."
+											app:campo="POINT"
+											suggestionItems="{ path: '/', sorter: { path: 'TEXTO' } }" 
+											showValueHelp="false">
+											<core:Item key="{VALUE}" text="{TEXTO}"/>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement id="fc_fromValorM" label="{i18n>CreateRegistrationDValorM}">
+									<f:fields>
+										<Input 
+										    id="fc_IValorM" 
+										    maxSuggestionWidth="80%" 
+										    showSuggestion="true" 
+										    placeholder="Ingrese Valor Medido ..."
+											showValueHelp="false">
+											<core:Item key="{VALUE}" text="{TEXTO}"/>
+										</Input>
+									</f:fields>
+								</f:FormElement>						
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+				<Label text="{i18n>CreateRegistrationDFechaHora}" class="sapUiSmallMarginBegin" />				
+				<DateTimeInput
+								id="DTI"
+								type="DateTime"
+								class="sapUiSmallMarginBegin"
+								valueFormat= "yyyy/MM/dd HH:mm:ss"
+								width="200px"
+								maxSuggestionWidth="80%" 
+								placeholder="Enter Date &amp; Time"/>
+				</VBox>	
+			</IconTabFilter>
+			<IconTabSeparator icon=""/>
+			</items>
+		</IconTabBar>
+        </content>
+        <beginButton>
+            <Button text="Grabar" type="Accept" icon="sap-icon://save" press="onCreateRegistration" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancelar"  type="Reject" icon="sap-icon://sys-cancel" press="onEndRegistration" />
+        </endButton>  
+            
+	</Dialog>
+	
+</core:FragmentDefinition>

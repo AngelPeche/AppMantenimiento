@@ -1,0 +1,131 @@
+<core:FragmentDefinition 
+	xmlns="sap.m" 
+	xmlns:core="sap.ui.core" 
+	xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<Dialog id="IdCreateOrder" title="{i18n>CreateOrderTitle}" icon="sap-icon://sales-order">
+		<content>   
+        	<IconTabBar
+			id="idIconTabBarSeparatorNoIconC"
+			expanded="true"
+			selectedKey = "header"
+			class="sapUiResponsiveContentPadding">
+			<items>
+			<IconTabFilter 
+				id="headerCreate"
+				key="header"
+				icon="sap-icon://sales-order"
+				iconColor="Positive"
+				text="{i18n>CreateOrderTabTitle=Nueva Orden}">
+				<VBox class="sapUiSmallMargin">
+					
+					<f:Form id="FormCreate"
+					editable="true">
+					
+					<f:title>
+						<core:Title text="{i18n>CreateOrderVBoxTitle}" />
+					</f:title>
+					
+					<f:layout>
+						<f:ResponsiveGridLayout
+							labelSpanXL="3"
+							labelSpanL="3"
+							labelSpanM="3"
+							labelSpanS="12"
+							adjustLabelSpan="false"
+							emptySpanXL="4"
+							emptySpanL="4"
+							emptySpanM="4"
+							emptySpanS="0"
+							columnsXL="1"
+							columnsL="1"
+							columnsM="1"
+							singleContainerFullSize="false" />
+					</f:layout>
+					
+				<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement id="fc_tipoOrden" label="{i18n>CreateOrdertipoOrden}">
+									<ComboBox id="fc_cboTipoOrden" width="100%" items="{
+																	path: 'ORDEN>/',
+																	sorter: { path: 'ORDEN>VALUE' }
+																}"> 
+										<core:Item key="{ORDEN>VALUE}" text="{ORDEN>VALUE} - {ORDEN>TEXTO}" />
+									</ComboBox>
+								</f:FormElement>
+								<f:FormElement id="fc_PuestoT" label="{i18n>CreateOrderPuestoT}">
+									<f:fields>
+										<Input 
+										    id="fc_filterpuestoT" 
+										    maxSuggestionWidth="80%" 
+										    showSuggestion="true" 
+										    liveChange="onLiveChange" 
+										    placeholder="Ingrese Puesto de Trabajo ..."
+										    app:campo="ARBPL"
+											suggestionItems="{ path: '/', sorter: { path: 'Name' } }" 
+											showValueHelp="false">
+											<core:Item key="{VALUE}" text="{TEXTO}"/>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement id="fc_Equipo" label="{i18n>CreateOrderEquipo}">
+									<f:fields>
+										<Input 
+										    id="fc_filterEquipo" 
+										    maxSuggestionWidth="80%" 
+										    showSuggestion="true" 
+										    liveChange="onLiveChange" 
+										    placeholder="Ingrese equipo ..."
+										    app:campo="EQUNR"
+											suggestionItems="{ path: '/', sorter: { path: 'Name' } }" 
+											showValueHelp="false">
+											<core:Item key="{VALUE}" text="{TEXTO}"/>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement id="fc_fromUbicacionT" label="{i18n>CreateOrderUbicacionT}">
+									<f:fields>
+										<Input 
+										    id="fc_filterUbicacionT" 
+										    maxSuggestionWidth="80%" 
+										    showSuggestion="true" 
+										    liveChange="onLiveChange" 
+										    placeholder="Ingrese Ubicación Técnica..."
+										    app:campo="BTPLN"
+											suggestionItems="{ path: '/', sorter: { path: 'Name' } }" 
+											showValueHelp="false">
+											<core:Item key="{VALUE}" text="{TEXTO}"/>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement id="fc_Proridad" label="{i18n>CreateOrderProridad}">
+									<ComboBox id="fc_cboPrioridad" width="100%" items="{
+																	path: 'PRIORIDAD>/',
+																	sorter: { path: 'Combo>VALUE' }
+																}"> 
+										<core:Item key="{PRIORIDAD>VALUE}" text="{PRIORIDAD>VALUE} - {PRIORIDAD>TEXTO}" />
+									</ComboBox>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+				</VBox>	
+			</IconTabFilter>
+			<IconTabSeparator icon=""/>
+			</items>
+		</IconTabBar>
+        </content>
+        <beginButton>
+            <Button text="Grabar" type="Accept" icon="sap-icon://save" press="onCreateOrder" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancelar"  type="Reject" icon="sap-icon://sys-cancel" press="onEndOrder" />
+        </endButton>  
+            
+	</Dialog>
+	
+</core:FragmentDefinition>

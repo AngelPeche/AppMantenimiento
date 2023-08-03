@@ -43,6 +43,7 @@ sap.ui.define([
 			});*/
 			this.onloadCombos("CLASE");
 			this.onloadCombos("PRIORIDAD");
+			this.onloadCombos("ORDEN");
 			this.getListaAviso();
 			// Control state model
 			var oList = this.byId("list"),
@@ -51,49 +52,6 @@ sap.ui.define([
 				// so it can be restored later on. Busy handling on the master list is
 				// taken care of by the master list itself.
 				iOriginalBusyDelay = oList.getBusyIndicatorDelay();
-
-			this._oGroupFunctions = {
-				CompanyName: function (oContext) {
-					var sCompanyName = oContext.getProperty("Customer/CompanyName");
-					return {
-						key: sCompanyName,
-						text: sCompanyName
-					};
-				},
-
-				OrderDate: function (oContext) {
-					var oDate = oContext.getProperty("OrderDate"),
-						iYear = oDate.getFullYear(),
-						iMonth = oDate.getMonth() + 1,
-						sMonthName = this._oMonthNameFormat.format(oDate);
-
-					return {
-						key: iYear + "-" + iMonth,
-						text: this.getResourceBundle().getText("masterGroupTitleOrderedInPeriod", [sMonthName, iYear])
-					};
-				}.bind(this),
-
-				ShippedDate: function (oContext) {
-					var oDate = oContext.getProperty("ShippedDate");
-					// Special handling needed because shipping date may be empty (=> not yet shipped).
-					if (oDate != null) {
-						var iYear = oDate.getFullYear(),
-							iMonth = oDate.getMonth() + 1,
-							sMonthName = this._oMonthNameFormat.format(oDate);
-
-						return {
-							key: iYear + "-" + iMonth,
-							text: this.getResourceBundle().getText("masterGroupTitleShippedInPeriod", [sMonthName, iYear])
-						};
-					} else {
-						return {
-							key: 0,
-							text: this.getResourceBundle().getText("masterGroupTitleNotShippedYet")
-						};
-					}
-				}.bind(this)
-			};
-			this._oMonthNameFormat = DateFormat.getInstance({ pattern: "MMMM"});
 
 			this._oList = oList;
 
@@ -158,7 +116,7 @@ sap.ui.define([
 			var sQuery = oEvent.getParameter("query");
 
 			if (sQuery) {
-				this._oListFilterState.aSearch = [new Filter("qmtxt", FilterOperator.Contains, sQuery)];
+				this._oListFilterState.aSearch = [new Filter("equnr", FilterOperator.Contains, sQuery)];
 			} else {
 				this._oListFilterState.aSearch = [];
 			}
@@ -345,10 +303,14 @@ sap.ui.define([
 			that.getView().byId("fc_textoBrev").setValue("");
 			that.getView().byId("fc_filterEquipo").setValue("");
 			that.getView().byId("fc_filterUbicacionT").setValue("");
-			that.getView().byId("fc_filterGrupoP").setValue("");
-			that.getView().byId("fc_filterpuestoT").setValue("");
-			that.getView().byId("fc_descripcion").setValue("");
+			//that.getView().byId("fc_filterGrupoP").setValue("");
+			//that.getView().byId("fc_filterpuestoT").setValue("");
+			//that.getView().byId("fc_descripcion").setValue("");
 			that.getView().byId("fc_cboPrioridad").setValue("");
+			that.getView().byId("fc_filterParte").setValue("");
+			that.getView().byId("fc_filterObjeto").setValue("");
+			that.getView().byId("fc_filterSintoma").setValue("");
+			that.getView().byId("fc_filterCausa").setValue("");
 		},
 
 		onOpenNewAviso : function (oEvent) {
@@ -367,6 +329,14 @@ sap.ui.define([
 			}
 			this._pViewSettingsDialog.then(function(oDialog) {
 				oDialog.open();
+				that.getView().byId("fc_Parte").setVisible(false);
+				that.getView().byId("fc_filterParte").setVisible(false);
+				that.getView().byId("fc_filterObjeto").setVisible(false);
+				that.getView().byId("fc_Objeto").setVisible(false);
+				that.getView().byId("fc_filterSintoma").setVisible(false);
+				that.getView().byId("fc_Sintoma").setVisible(false);
+				that.getView().byId("fc_filterObjeto").setVisible(false);
+				that.getView().byId("fc_Causa").setVisible(false);
 			});
 		},
 
@@ -455,7 +425,7 @@ sap.ui.define([
 			}
 			
 			if (grupoP.getValue() !== ""){
-				ubicacionT.setEditable(false);
+				ubicacionT.setEditable(false);z
 				ubicacionT.setValue("");
 			}else{
 				ubicacionT.setEditable(true);
@@ -469,6 +439,9 @@ sap.ui.define([
 			var valor = oEvent.getSource().getValue();
 			var input2 = oEvent.getSource();
 
+			that.onBusquedaSensitiva(valor, "", "", campo, input2);
+
+			/*
 			switch (campo) {
 			case "EQUNR":
 				that.onBusquedaSensitiva(valor, "", "", campo, input2);
@@ -484,7 +457,7 @@ sap.ui.define([
 			case 'ARBPL':
 				that.onBusquedaSensitiva(valor, "", "", campo, input2);
 				break;
-			}
+			}*/
 		},
 
 		onloadCombos: function (object_value) {
@@ -508,7 +481,7 @@ sap.ui.define([
 					data = JSON.parse(result.results[0].et_data);
 					oDatModel = new JSONModel(data);
 					that.getView().setModel(oDatModel,object_value);
-					sap.ui.getCore().setModel(data,object_value);
+					that.getOwnerComponent().setModel(oDatModel,object_value);	
 				},
 				error: function (err) {
 					sap.ui.core.BusyIndicator.hide();
@@ -532,10 +505,10 @@ sap.ui.define([
 				avisoRow.equnr = this.getView().byId("fc_Equipo").getFields()[0].getSelectedKey();
 				avisoRow.qmtxt = this.getView().byId("fc_textoBrev").getValue();
 				avisoRow.btpln = this.getView().byId("fc_filterUbicacionT").getSelectedKey();
-				avisoRow.ingrp = this.getView().byId("fc_filterGrupoP").getSelectedKey();
-				avisoRow.arbpl = this.getView().byId("fc_filterpuestoT").getSelectedKey();
+				//avisoRow.ingrp = this.getView().byId("fc_filterGrupoP").getSelectedKey();
+				//avisoRow.arbpl = this.getView().byId("fc_filterpuestoT").getSelectedKey();
 				avisoRow.priok = this.getView().byId("fc_cboPrioridad").getSelectedKey();
-				avisoRow.descrip = this.getView().byId("fc_descripcion").getValue();
+				//avisoRow.descrip = this.getView().byId("fc_descripcion").getValue();
 				
 				oData.is_aviso_c = JSON.stringify(avisoRow);
 				
@@ -597,7 +570,294 @@ sap.ui.define([
 			}
 			
 			return ok;
-		}
+		},
+
+		onChangeClaseAviso: function () {
+
+			var claseAviso = this.getView().byId("fc_cboClaseAviso").getSelectedKey();
+
+			if (claseAviso == "M2" ){
+				that.getView().byId("fc_Parte").setVisible(true);
+				that.getView().byId("fc_filterParte").setVisible(true);
+				that.getView().byId("fc_filterObjeto").setVisible(true);
+				that.getView().byId("fc_Objeto").setVisible(true);
+				that.getView().byId("fc_filterSintoma").setVisible(true);
+				that.getView().byId("fc_Sintoma").setVisible(true);
+				that.getView().byId("fc_filterObjeto").setVisible(true);
+				that.getView().byId("fc_Causa").setVisible(true);
+			}else {
+				that.getView().byId("fc_Parte").setVisible(false);
+				that.getView().byId("fc_filterParte").setVisible(false);
+				that.getView().byId("fc_filterObjeto").setVisible(false);
+				that.getView().byId("fc_Objeto").setVisible(false);
+				that.getView().byId("fc_filterSintoma").setVisible(false);
+				that.getView().byId("fc_Sintoma").setVisible(false);
+				that.getView().byId("fc_filterObjeto").setVisible(false);
+				that.getView().byId("fc_Causa").setVisible(false);
+				that.getView().byId("fc_filterParte").setValue("");
+				that.getView().byId("fc_filterObjeto").setValue("");
+				that.getView().byId("fc_filterSintoma").setValue("");
+				that.getView().byId("fc_filterCausa").setValue("");
+			}
+
+		},
+
+		onsearchOrden : function (oEvent) {
+			// Llamar Form Buscar Orden
+			if (!this._pViewSearchDialog2) {
+				this._pViewSearchDialog2 = Fragment.load({
+					id: this.getView().getId(),
+					name: "poderosa.app.mantenimiento.view.SearchOrder",
+					controller: this
+				}).then(function(oDialog2){
+					// connect dialog to the root view of this component (models, lifecycle)
+					this.getView().addDependent(oDialog2);
+					oDialog2.addStyleClass(this.getOwnerComponent().getContentDensityClass());
+					return oDialog2;
+				}.bind(this));
+			}
+			this._pViewSearchDialog2.then(function(oDialog2) {
+				oDialog2.open();
+			});
+		},
+
+		onClearSearch: function () {
+			//Limpiar Datos de búsqueda//
+			var oTable = that.byId("TbOrdenes");
+			oTable.removeAllItems();
+			this.getView().byId("IOrden").setValue("");
+		},
+
+		onEndSearch: function () {
+			//Cerrar Dialog//
+			that.onClearSearch();
+			that.byId("IdSearchOrder").close()
+		},
+
+		onOpenNewRegistration : function (oEvent) {
+			// Llamar Form Creación de Documento de Medida
+			if (!this._pViewSettingsDialog3) {
+				this._pViewSettingsDialog3 = Fragment.load({
+					id: this.getView().getId(),
+					name: "poderosa.app.mantenimiento.view.NewRegistration",
+					controller: this
+				}).then(function(oDialog3){
+					// connect dialog to the root view of this component (models, lifecycle)
+					this.getView().addDependent(oDialog3);
+					oDialog3.addStyleClass(this.getOwnerComponent().getContentDensityClass());
+					return oDialog3;
+				}.bind(this));
+			}
+			this._pViewSettingsDialog3.then(function(oDialog3) {
+				oDialog3.open();
+			});
+		},
+
+		onClearRegistration: function () {
+			//Limpiar Datos Documento de Medida//
+			this.getView().byId("fc_IPuntoM").setValue("");;
+			this.getView().byId("DTI").setValue("");
+			this.getView().byId("fc_IValorM").setValue("");
+		},
+
+		onEndRegistration: function () {
+			//Cerrar Dialog//
+			this.onClearRegistration();
+			this.byId("IdCreateRegistration").close();
+		},
+
+		onValidateRegistration:function (){
+			var ok = true;
+			
+			if (this.getView().byId("fc_IPuntoM").getValue() === ""){
+				ok = false;
+				MessageBox.error("Debe Ingresar Punto de Medida");
+			}else if (this.getView().byId("fc_IValorM").getValue() === ""){
+				ok = false;
+				MessageBox.error("Debe Ingresar Valor Medido");
+			}else if (this.getView().byId("DTI").getValue() === ""){
+				ok = false;
+				MessageBox.error("Debe Ingresar Fecha y Hora de Medición");
+			}
+			
+			return ok;
+		},
+
+		onCreateRegistration: function () {
+			//Creación de Documento de Medida//
+			var oModel = new sap.ui.model.odata.v2.ODataModel("/sap/opu/odata/sap/ZGW_APP_MANTEN_ISP_SRV/");
+			var ofilters = [];
+			var registRow = {};
+			var oData = {};
+			
+			//Verificar antes de enviar
+			if (this.onValidateRegistration()){
+			
+			registRow.POINT = this.getView().byId("fc_IPuntoM").getSelectedKey();
+			registRow.IDATE = this.getView().byId("DTI").getValue().substr(0,10);
+			registRow.IDATE = registRow.IDATE.replaceAll("/","");
+			registRow.ITIME = this.getView().byId("DTI").getValue().substr(11,8);
+			registRow.ITIME = registRow.ITIME.replaceAll(":","");
+			//registRow.READR = ;
+			registRow.GENER = "A";
+			registRow.RECDC = this.getView().byId("fc_IValorM").getValue();
+			registRow.PREPA_U = "X";
+			registRow.WAIT_C = "X";
+			registRow.QMART = "M2";
+				
+			oData.is_registro_c = JSON.stringify(registRow);
+				
+			sap.ui.core.BusyIndicator.show();
+				
+				oModel.create("/registroSet", oData , {
+					filters: ofilters,
+					success: function (result) {
+						sap.ui.core.BusyIndicator.hide();
+						if (result.e_operacion === '001') {
+							MessageBox.success(result.e_msg);	
+							that.onEndRegistration();
+						}else{
+							MessageBox.error(result.e_msg);
+							that.onEndRegistration();
+						}
+					},
+					error: function (err) {
+						sap.ui.core.BusyIndicator.hide();
+						MessageBox.error(JSON.parse(err.responseText).error.message.value);
+					}
+				});
+			}
+		},
+
+		onSearchOrder: function () {
+			//Búsqueda de Información de Ordenes//
+			var oModel = new sap.ui.model.odata.v2.ODataModel("/sap/opu/odata/sap/ZGW_APP_MANTEN_ISP_SRV/");
+			var ofilters = [];
+
+			var orden = this.getView().byId("IOrden").getValue();
+
+			var filter = new Filter({
+				path: "is_orden_c",
+				operator: FilterOperator.EQ,
+				value1: orden
+			});
+			ofilters.push(filter);
+
+			var data;
+			var oTable = that.byId("TbOrdenes");
+			
+			oModel.read("/ordenSet", {
+				filters: ofilters,
+				success: function (result) {
+					data = JSON.parse(result.results[0].et_data);
+					if (data.length > 0){
+						oTable.removeAllItems();
+						for (var i = 0; i < data.length; i++) {
+					
+							var row = data[i];
+							var itemRow = new sap.m.ColumnListItem( {
+							   type: sap.m.ListType.Inactive,
+							   unread: false,
+							   vAlign: "Middle",
+							   cells: [
+								 // add created controls to item
+								new sap.m.Label({text: row.AUFNR}),
+								new sap.m.Label({text: row.ERDAT}),
+								new sap.m.Label({text: row.KTEXT}), 
+								new sap.m.Label({text: row.EQUNR})
+								 ]
+							  });
+							  oTable.addItem(itemRow);
+						}
+					}
+				},
+				error: function (err) {
+					sap.ui.core.BusyIndicator.hide();
+					MessageBox.error(JSON.parse(err.responseText).error.message.value);
+				}
+			});
+		},
+
+		onSearchDocument : function (oEvent) {
+			// Llamar Form Buscar Orden
+			if (!this._pViewSearchDialog4) {
+				this._pViewSearchDialog4 = Fragment.load({
+					id: this.getView().getId(),
+					name: "poderosa.app.mantenimiento.view.SearchDocument",
+					controller: this
+				}).then(function(oDialog4){
+					// connect dialog to the root view of this component (models, lifecycle)
+					this.getView().addDependent(oDialog4);
+					oDialog4.addStyleClass(this.getOwnerComponent().getContentDensityClass());
+					return oDialog4;
+				}.bind(this));
+			}
+			this._pViewSearchDialog4.then(function(oDialog4) {
+				oDialog4.open();
+			});
+		},
+
+		onClearSearchDocument: function (){
+			var oTable = that.byId("TbDocuments");
+			oTable.removeAllItems();
+			this.getView().byId("IEquipo").setValue("");
+		},
+
+		onEndSearchDocument: function () {
+			//Cerrar Dialog//
+			that.onClearSearchDocument();
+			that.byId("IdSearchDocument").close();
+		},
+
+		onSearchDocumentM: function () {
+			//Búsqueda de Información de Documentos//
+			var oModel = new sap.ui.model.odata.v2.ODataModel("/sap/opu/odata/sap/ZGW_APP_MANTEN_ISP_SRV/");
+			var ofilters = [];
+
+			var documento = this.getView().byId("IEquipo").getValue();
+
+			var filter = new Filter({
+				path: "is_registro_c",
+				operator: FilterOperator.EQ,
+				value1: documento
+			});
+			ofilters.push(filter);
+
+			var data;
+			var oTable = that.byId("TbDocuments");
+			
+			oModel.read("/registroSet", {
+				filters: ofilters,
+				success: function (result) {
+					data = JSON.parse(result.results[0].et_data);
+					if (data.length > 0){
+						oTable.removeAllItems();
+						for (var i = 0; i < data.length; i++) {
+					
+							var row = data[i];
+							var itemRow = new sap.m.ColumnListItem( {
+							   type: sap.m.ListType.Inactive,
+							   unread: false,
+							   vAlign: "Middle",
+							   cells: [
+								 // add created controls to item
+								new sap.m.Label({text: row.EQUNR}),
+								new sap.m.Label({text: row.EQKTX}),
+								new sap.m.Label({text: row.POINT}), 
+								new sap.m.Label({text: row.RECDV}),
+								new sap.m.Label({text: row.ERDAT})
+								 ]
+							  });
+							  oTable.addItem(itemRow);
+						}
+					}
+				},
+				error: function (err) {
+					sap.ui.core.BusyIndicator.hide();
+					MessageBox.error(JSON.parse(err.responseText).error.message.value);
+				}
+			});
+		},
 
 
 	});

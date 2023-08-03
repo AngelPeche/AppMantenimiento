@@ -69,6 +69,25 @@
 							id="addAviso"
 							press=".onOpenNewAviso"
 							icon="sap-icon://add"
+							tooltip="Nuevo Aviso"
+							type="Transparent"/>
+						<Button
+							id="searchOrden"
+							press=".onsearchOrden"
+							icon="sap-icon://inspection"
+							tooltip="Buscar Orden"
+							type="Transparent"/>
+						<Button
+							id="newRegistration"
+							press=".onOpenNewRegistration"
+							icon="sap-icon://add-activity"
+							tooltip="Documento de Medida"
+							type="Transparent"/>
+						<Button
+							id="searchDocument"
+							press=".onSearchDocument"
+							icon="sap-icon://detail-view"
+							tooltip="Buscar Doc.Medida"
 							type="Transparent"/>
 						<Button
 							id="Sort"

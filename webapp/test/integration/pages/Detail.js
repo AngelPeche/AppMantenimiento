@@ -14,11 +14,11 @@ sap.ui.define([
 
 			actions: {
 
-				iPressProcessorTab: function () {
+				iPressOrderTab: function () {
 					return this.waitFor({
-						id: "iconTabFilterProcessor",
+						id: "iconTabFilterOrder",
 						actions: new Press(),
-						errorMessage: "Did not find the processor tab on detail page"
+						errorMessage: "Did not find the Order tab on detail page"
 					});
 				},
 
@@ -155,25 +155,25 @@ sap.ui.define([
 					});
 				},
 
-				iShouldSeeTheShippingInfo: function () {
+				iShouldSeeTheInformationInfo: function () {
 					return this.waitFor({
 						id: "SimpleFormShipAddress",
-						viewName: "Shipping",
+						viewName: "Information",
 						success: function () {
-							Opa5.assert.ok("The shipping tab is rendered");
+							Opa5.assert.ok("The Information tab is rendered");
 						},
-						errorMessage: "Did not find shipping info"
+						errorMessage: "Did not find Information info"
 					});
 				},
 
-				iShouldSeeTheProcessorInfo: function () {
+				iShouldSeeTheOrderInfo: function () {
 					return this.waitFor({
-						id: "SimpleFormProcessorInfo",
-						viewName: "Processor",
+						id: "SimpleFormOrderInfo",
+						viewName: "Order",
 						success: function () {
-							Opa5.assert.ok("The processor tab is rendered");
+							Opa5.assert.ok("The Order tab is rendered");
 						},
-						errorMessage: "Did not find processor info"
+						errorMessage: "Did not find Order info"
 					});
 				},
 

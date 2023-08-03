@@ -1,0 +1,84 @@
+<core:FragmentDefinition 
+	xmlns="sap.m" 
+	xmlns:core="sap.ui.core" 
+	xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified"
+	xmlns:plugins="sap.m.plugins"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<Dialog id="IdSearchOrder" title="{i18n>SearchOrderTitle}" icon="sap-icon://inspection">
+		<content>   
+        	<IconTabBar
+			id="idIconTabBarSeparatorNoIcon"
+			expanded="true"
+			selectedKey = "header"
+			class="sapUiResponsiveContentPadding">
+			<items>
+			<IconTabFilter
+				icon="sap-icon://list"
+				iconColor="Positive"
+				text="{i18n>SearchOrderTabTitle}">
+				<Table id="TbOrdenes" 
+						inset="false"
+						alternateRowColors="true" contextualWidth="500px" popinLayout="GridSmall"
+						growing="true"
+						growingScrollToLoad="true"
+						items="{Orden}"
+						width="auto"
+						mode="MultiSelect">
+						<headerToolbar>
+							<OverflowToolbar id="otbSubheader02">
+								<Title 	 text="{i18n>SearchOrderTableTitle}" level="H2"  />
+								<ToolbarSpacer />
+								<Input width="20%" placeholder="Ingrese Orden ..." id="IOrden">
+									<layoutData>
+										<OverflowToolbarLayoutData shrinkable="true" group="2" minWidth="150px"/>
+									</layoutData>
+								</Input>
+							</OverflowToolbar>
+						</headerToolbar>
+						<dependents>
+							<plugins:ColumnResizer/>
+						</dependents>
+						<columns>
+						
+							<Column >
+								<Text text="{i18n>SearchOrderOrdenColumn}" />
+							</Column>
+								<Column >
+								<Text text="{i18n>SearchOrderFechaRColumn}" />
+							</Column>
+							<Column >
+								<Text text="{i18n>SearchOrderTextoBrevColumn}" />
+							</Column>
+							<Column >
+								<Text text="{i18n>SearchOrderEquipoColumn}" />
+							</Column>
+													
+						</columns>
+						<items id="items">
+							<ColumnListItem>
+								<cells>
+									<ObjectIdentifier text="{AUFNR}" />
+									<ObjectAttribute text="{ERDAT}" />
+									<ObjectAttribute text="{KTEXT}" />
+									<ObjectAttribute text="{EQUNR}" />
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+			</IconTabFilter>
+			<IconTabSeparator icon=""/>
+			</items>
+		</IconTabBar>
+        </content>
+		<beginButton>
+            <Button text="Buscar" type="Accept" icon="sap-icon://search" press="onSearchOrder" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancelar"  type="Reject" icon="sap-icon://sys-cancel" press="onEndSearch" />
+        </endButton>  
+            
+	</Dialog>
+	
+</core:FragmentDefinition>

@@ -3,7 +3,7 @@
     "private": true,
     "version": "0.0.1",
     "author": "SAP SE",
-    "description": "UI5 Demo App - Browse Orders",
+    "description": "App Mantenimiento",
     "scripts": {
         "lint": "eslint webapp",
         "start_old": "ui5 serve",

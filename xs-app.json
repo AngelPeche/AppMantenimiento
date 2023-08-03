@@ -6,7 +6,7 @@
       "source": "^/sap/(.*)$",
       "target": "/sap/$1",
       "destination": "DEV_PODEROSA",
-      "authenticationType": "xsuaa",
+      "authenticationType": "none",
       "csrfProtection": false
     },
     {
